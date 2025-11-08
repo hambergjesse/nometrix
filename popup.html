@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      :root {
+        --accent: rgb(29, 155, 240);
+      }
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        margin: 0;
+        padding: 20px;
+        width: 300px;
+        box-sizing: border-box;
+        background: var(--bg);
+        color: var(--text);
+        --bg: #000000;
+        --text: rgb(231, 233, 234);
+        --secondary-text: #71767b;
+        --border: #2f3336;
+        --input-bg: #1f1f1f;
+        --toggle-off: #333;
+      }
+      body[data-theme="dim"] {
+        --bg: #15202b;
+        --border: #38444d;
+      }
+      body[data-theme="light"] {
+        --bg: #ffffff;
+        --text: #0f1419;
+        --secondary-text: rgb(83, 100, 113);
+        --border: #cfd9de;
+        --input-bg: #f7f9f9;
+        --toggle-off: #acb4bc;
+      }
+      h1 {
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0 0 4px;
+        text-align: center;
+        color: var(--accent);
+      }
+      .slogan {
+        font-size: 13px;
+        font-weight: 600;
+        margin: 0 0 20px;
+        text-align: center;
+        color: var(--accent);
+        letter-spacing: 0.5px;
+      }
+      h2 {
+        font-size: 13px;
+        font-weight: 400;
+        margin: 0 0 24px;
+        text-align: center;
+        color: var(--secondary-text);
+      }
+      .section {
+        margin-bottom: 24px;
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .sub {
+        font-weight: 400;
+        font-size: 12px;
+        color: var(--secondary-text);
+      }
+      input[type="text"],
+      textarea,
+      select {
+        width: 100%;
+        padding: 10px;
+        background: var(--input-bg);
+        border: 1px solid var(--border);
+        color: var(--text);
+        border-radius: 8px;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+      textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+      input[type="text"]:focus,
+      textarea:focus,
+      select:focus {
+        border-color: var(--accent);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(29, 155, 240, 0.3);
+      }
+      .toggle-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+        margin-bottom: 12px;
+      }
+      .master {
+        font-weight: 600;
+        color: var(--text);
+      }
+      .toggle {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 26px;
+      }
+      .toggle input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--toggle-off);
+        transition: 0.3s;
+        border-radius: 34px;
+      }
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 4px;
+        bottom: 4px;
+        background: #fff;
+        transition: 0.3s;
+        border-radius: 50%;
+      }
+      input:checked + .slider {
+        background: var(--accent);
+      }
+      input:checked + .slider:before {
+        transform: translateX(24px);
+      }
+      input:disabled + .slider {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .toggle-label.disabled {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+      .note,
+      .credit {
+        font-size: 12px;
+        color: var(--secondary-text);
+        margin-top: 12px;
+        text-align: center;
+        line-height: 1.4;
+      }
+      .credit a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .credit a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>NoMetriX</h1>
+    <div class="slogan">Detox Your Feed – Zero Metrics, Pure Vibes</div>
+
+    <div class="section">
+      <label for="theme">Popup Theme</label>
+      <select id="theme">
+        <option value="auto">Auto (sync with X)</option>
+        <option value="light">Light</option>
+        <option value="dim">Dim</option>
+        <option value="black">Lights Out</option>
+      </select>
+    </div>
+
+    <h2>Hide all metrics on your posts</h2>
+
+    <div class="section">
+      <label for="usernames"
+        >Your X usernames (one per line, without @)<br /><span class="sub"
+          >Required for reply/retweet/like counts</span
+        ></label
+      >
+      <textarea
+        id="usernames"
+        rows="3"
+        placeholder="ratx64
+elonmusk
+grok"
+      ></textarea>
+    </div>
+
+    <div class="section">
+      <div class="toggle-label master">
+        <span>Extension Enabled</span>
+        <label class="toggle">
+          <input type="checkbox" id="enabled" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="toggle-label" id="repliesLabel">
+        <span>Hide Reply Counts</span>
+        <label class="toggle">
+          <input type="checkbox" id="hideReplies" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="toggle-label" id="retweetsLabel">
+        <span>Hide Retweet Counts</span>
+        <label class="toggle">
+          <input type="checkbox" id="hideRetweets" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="toggle-label" id="likesLabel">
+        <span>Hide Like Counts</span>
+        <label class="toggle">
+          <input type="checkbox" id="hideLikes" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="toggle-label" id="impressionsLabel">
+        <span>Hide Impressions</span>
+        <label class="toggle">
+          <input type="checkbox" id="hideImpressions" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="note">
+      Changes save automatically.<br />Hard-refresh X tabs after changes.
+    </div>
+    <div class="credit">
+      By
+      <a href="https://x.com/ratx64" target="_blank" rel="noopener noreferrer"
+        >rat (@ratx64)</a
+      >
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

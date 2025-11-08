@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "NoMetriX",
+  "version": "1.0.0",
+  "description": "NoMetriX: Hide replies, retweets, likes & impressions on your X posts. Multi-account, toggles, theme sync. <450KB detox by @ratx64.",
+  "author": "rat (@ratx64)",
+  "permissions": ["storage", "tabs"],
+  "host_permissions": ["https://x.com/*", "https://twitter.com/*"],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://x.com/*", "https://twitter.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
